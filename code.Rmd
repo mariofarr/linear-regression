@@ -1,0 +1,12 @@
+---
+title: "modelagem1"
+author: "Mario Farrapo"
+date: "2026-02-21"
+output: html_document
+---
+
+```{r}
+
+library(tidyverse)
+
+```

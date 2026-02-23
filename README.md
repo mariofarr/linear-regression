@@ -1,10 +1,10 @@
 ## README
 
-## Overview
+### Overview
 
 This project presents an exploratory and inferential analysis using linear regression models to investigate the relationship between socioeconomic indicators and fertility across Swiss provinces. The analysis is based on the classic swiss dataset available in base R.
 
-## Dataset Description
+### Dataset Description
 
 The swiss dataset contains observations from 47 Swiss provinces and includes the following variables:
 
@@ -22,7 +22,7 @@ The swiss dataset contains observations from 47 Swiss provinces and includes the
 
 The response variable in this project is Fertility.
 
-## Objectives
+### Objectives
 
 -   Explore relationships between fertility and socioeconomic variables
 

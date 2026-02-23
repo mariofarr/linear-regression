@@ -1,13 +1,103 @@
 ---
-title: "modelagem1"
+title: "Modelagem 1 - Regressão Linear"
 author: "Mario Farrapo"
 date: "2026-02-21"
 output: html_document
 ---
 
-```{r}
+In this project, we use the **`swiss`** dataset from base R to study the relationship between several socioeconomic variables across Swiss provinces and fertility levels, with the goal of building a multivariate model.
+
+```{r message=FALSE}
 
 library(tidyverse)
-#blablabla
+library(GGally)
+library(performance)
+
+```
+
+```{r}
+
+data("swiss")
+head(swiss)
+
+```
+
+Each row corresponds to a different province, and multiple socioeconomic variables are available for each region.
+
+## Exploration
+
+We aim to build a model to predict fertility levels; however, we do not yet know how the data are distributed or how the variables relate to one another. Therefore, we begin with an exploratory data analysis using the `GGally::ggpairs()` function.
+
+```{r}
+
+ggpairs(swiss,
+        lower = list(continuous = "smooth")) +
+  theme_bw()
+
+```
+
+```{r}
+
+shapiro.test(swiss$Fertility)
+
+```
+
+We observe that Fertility has an approximately normal distribution and is correlated with all other variables in a roughly linear manner. The Shapiro–Wilk test confirms the normality of Fertility. Based on these results, we proceed with a multivariate linear regression model.
+
+## Modeling
+
+```{r}
+
+lm <- lm(Fertility ~ Agriculture + Examination + Education + Catholic + Infant.Mortality, data = swiss)
+
+summary(lm)
+
+```
+
+At this stage, we observe that the model shows strong apparent statistical performance, with an adjusted R² of 0.67 and a p-value of 5.594e−10. However, the variable Examination does not provide a significant contribution to the model. We therefore remove it and compare the two models.
+
+```{r}
+
+reduced_lm <- lm(Fertility ~ Agriculture + Education + Catholic + Infant.Mortality, data = swiss)
+
+compare_performance(reduced_lm, lm)
+
+```
+
+The comparison shows that the full model (`lm`) fits the data very similarly to the reduced model (`reduced_lm`). However, the model weights indicate that the reduced model has a much higher probability of being the best model among those tested. In addition, the adjusted R² is identical for both models. Considering the principle of parsimony, we retain the reduced model.
+
+## Diagnostics
+
+Next, we perform model diagnostics to assess whether the assumptions of the linear regression model are satisfied.
+
+```{r}
+
+plot(reduced_lm)
+check_normality(reduced_lm)
+check_collinearity(reduced_lm)
+check_autocorrelation(reduced_lm)
+check_heteroscedasticity(reduced_lm)
+
+```
+
+The diagnostic analysis shows no violation of the assumptions of residual normality and homoscedasticity. We also observe low multicollinearity among the predictors, which is desirable in a multivariate model. However, there is evidence of residual dependence, likely due to the spatial or temporal structure in which the data were collected.
+
+## Visualization
+
+Finally, we visualize the final model.
+
+```{r message=FALSE}
+
+ggplot(swiss, aes(x = fitted(reduced_lm), y = Fertility)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  annotate("text",
+           x = min(fitted(reduced_lm)),
+           y = max(swiss$Fertility),
+           label = paste0(
+                  "Adjusted R² = ",
+                  round(summary(reduced_lm)$adj.r.squared, 3)),
+            hjust = 0) +
+  theme_bw()
 
 ```

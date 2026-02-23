@@ -13,7 +13,7 @@
 
 <meta name="date" content="2026-02-21" />
 
-<title>Modeling 1 - Linear Regression</title>
+<title>Linear Regression</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -350,7 +350,7 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Modeling 1 - Linear Regression</h1>
+<h1 class="title toc-ignore">Linear Regression</h1>
 <h4 class="author">Mario Farrapo</h4>
 <h4 class="date">2026-02-21</h4>
 
@@ -477,7 +477,7 @@ of the linear regression model are satisfied.</p>
 ##          Catholic 1.30 [1.08, 2.09]     1.14      0.77     [0.48, 0.92]
 ##  Infant.Mortality 1.11 [1.01, 2.65]     1.05      0.90     [0.38, 0.99]</code></pre>
 <pre class="r"><code>check_autocorrelation(reduced_lm)</code></pre>
-<pre><code>## Warning: Autocorrelated residuals detected (p = 0.026).</code></pre>
+<pre><code>## Warning: Autocorrelated residuals detected (p = 0.032).</code></pre>
 <pre class="r"><code>check_heteroscedasticity(reduced_lm)</code></pre>
 <pre><code>## OK: Error variance appears to be homoscedastic (p = 0.494).</code></pre>
 <p>The diagnostic analysis shows no violation of the assumptions of

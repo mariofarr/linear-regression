@@ -1,5 +1,5 @@
 ---
-title: "Modeling 1 - Linear Regression"
+title: "Linear Regression"
 author: "Mario Farrapo"
 date: "2026-02-21"
 output: html_document

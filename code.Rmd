@@ -1,5 +1,5 @@
 ---
-title: "Linear Regression"
+title: "Fertility prediction with linear regression"
 author: "Mario Farrapo"
 date: "2026-02-21"
 output: html_document
